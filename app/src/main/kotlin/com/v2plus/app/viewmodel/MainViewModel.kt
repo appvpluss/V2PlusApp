@@ -9,6 +9,7 @@ import android.content.res.AssetManager
 import android.os.Build
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -78,9 +79,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 Context.RECEIVER_EXPORTED
             )
         } else {
-            getApplication<AngApplication>().registerReceiver(
+            ContextCompat.registerReceiver(
+                getApplication<AngApplication>(),
                 mMsgReceiver,
-                IntentFilter(AppConfig.BROADCAST_ACTION_ACTIVITY)
+                IntentFilter(AppConfig.BROADCAST_ACTION_ACTIVITY),
+                ContextCompat.RECEIVER_NOT_EXPORTED
             )
         }
         MessageUtil.sendMsg2Service(getApplication(), AppConfig.MSG_REGISTER_CLIENT, "")
@@ -207,7 +210,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val listId = subscriptions.map { it.first }.toMutableList()
         val listRemarks = subscriptions.map { it.second.remarks }.toMutableList()
         listRemarks += context.getString(R.string.filter_config_all)
-        val checkedItem = listId.indexOf(subscriptionId).takeIf { it >= 0 } ?: listRemarks.count() - 1
+        val checkedItem =
+            listId.indexOf(subscriptionId).takeIf { it >= 0 } ?: (listRemarks.count() - 1)
 
         AlertDialog.Builder(context)
             .setSingleChoiceItems(listRemarks.toTypedArray(), checkedItem) { dialog, i ->
