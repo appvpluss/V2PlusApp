@@ -90,7 +90,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         getApplication<AngApplication>().unregisterReceiver(mMsgReceiver)
         tcpingTestScope.coroutineContext[Job]?.cancelChildren()
         SpeedtestUtil.closeAllTcpSockets()
-        Log.i(ANG_PACKAGE, "Main ViewModel is cleared")
+        //Log.i(ANG_PACKAGE, "Main ViewModel is cleared")
         super.onCleared()
     }
 
