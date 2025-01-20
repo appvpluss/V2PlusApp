@@ -96,8 +96,8 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar","*.jar"))))
-    implementation(files("libs/libv2ray.aar"))
-    implementation(files("libs/rxpermissions-0.9.4.aar"))
+    implementation(files("library/libv2ray.aar"))
+    implementation(files("library/rxpermissions-0.9.4.aar"))
     testImplementation(libs.junit)
 
     implementation(libs.flexbox)
