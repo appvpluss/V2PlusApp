@@ -1,7 +1,6 @@
 package com.v2plus.app
 
 import com.tbruyelle.rxpermissions.BuildConfig
-import com.v2plus.com.v2plus.app.BuildConfig
 
 
 object AppConfig {
