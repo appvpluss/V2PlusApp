@@ -270,13 +270,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                                 input.copyTo(output)
                             }
                         }
-                        Log.i(
+                        /*Log.i(
                             ANG_PACKAGE,
                             "Copied from apk assets folder to ${target.absolutePath}"
-                        )
+                        )*/
                     }
             } catch (e: Exception) {
-                Log.e(ANG_PACKAGE, "asset copy failed", e)
+                //Log.e(ANG_PACKAGE, "asset copy failed", e)
             }
         }
     }
