@@ -92,7 +92,7 @@ object ShadowsocksFmt {
             if (query != "") {
                 val queryPairs = HashMap<String, String>()
                 val pairs = query.split(";")
-                Log.d(AppConfig.ANG_PACKAGE, pairs.toString())
+                //Log.d(AppConfig.ANG_PACKAGE, pairs.toString())
                 for (pair in pairs) {
                     val idx = pair.indexOf("=")
                     if (idx == -1) {
@@ -102,7 +102,7 @@ object ShadowsocksFmt {
                             Utils.urlDecode(pair.substring(idx + 1))
                     }
                 }
-                Log.d(AppConfig.ANG_PACKAGE, queryPairs.toString())
+                //Log.d(AppConfig.ANG_PACKAGE, queryPairs.toString())
                 var sni: String? = ""
                 if (queryPairs["plugin"] == "obfs-local" && queryPairs["obfs"] == "http") {
                     sni = config.outboundBean?.streamSettings?.populateTransportSettings(
@@ -151,7 +151,7 @@ object ShadowsocksFmt {
             }
             return true
         } catch (e: Exception) {
-            Log.d(AppConfig.ANG_PACKAGE, e.toString())
+            //Log.d(AppConfig.ANG_PACKAGE, e.toString())
             return false
         }
     }

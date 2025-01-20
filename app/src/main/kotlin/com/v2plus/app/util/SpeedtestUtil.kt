@@ -40,7 +40,7 @@ object SpeedtestUtil {
         return try {
             Libv2ray.measureOutboundDelay(config, Utils.getDelayTestUrl())
         } catch (e: Exception) {
-            Log.d(AppConfig.ANG_PACKAGE, "realPing: $e")
+            //Log.d(AppConfig.ANG_PACKAGE, "realPing: $e")
             -1L
         }
     }
@@ -81,7 +81,7 @@ object SpeedtestUtil {
         } catch (e: UnknownHostException) {
             e.printStackTrace()
         } catch (e: IOException) {
-            Log.d(AppConfig.ANG_PACKAGE, "socketConnectTime IOException: $e")
+            //Log.d(AppConfig.ANG_PACKAGE, "socketConnectTime IOException: $e")
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -133,14 +133,14 @@ object SpeedtestUtil {
             }
         } catch (e: IOException) {
             // network exception
-            Log.d(
+            /*Log.d(
                 AppConfig.ANG_PACKAGE,
                 "testConnection IOException: " + Log.getStackTraceString(e)
-            )
+            )*/
             result = context.getString(R.string.connection_test_error, e.message)
         } catch (e: Exception) {
             // library exception, eg sumsung
-            Log.d(AppConfig.ANG_PACKAGE, "testConnection Exception: " + Log.getStackTraceString(e))
+            //Log.d(AppConfig.ANG_PACKAGE, "testConnection Exception: " + Log.getStackTraceString(e))
             result = context.getString(R.string.connection_test_error, e.message)
         } finally {
             conn?.disconnect()

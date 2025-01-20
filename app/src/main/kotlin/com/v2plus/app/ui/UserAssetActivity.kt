@@ -224,7 +224,7 @@ class UserAssetActivity : BaseActivity() {
             }
             return true
         } catch (e: Exception) {
-            Log.e(AppConfig.ANG_PACKAGE, Log.getStackTraceString(e))
+            //Log.e(AppConfig.ANG_PACKAGE, Log.getStackTraceString(e))
             return false
         } finally {
             conn?.disconnect()

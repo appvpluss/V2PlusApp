@@ -550,7 +550,7 @@ object AngConfigManager {
             if (!Utils.isValidUrl(url)) {
                 return 0
             }
-            Log.d(AppConfig.ANG_PACKAGE, url)
+            //Log.d(AppConfig.ANG_PACKAGE, url)
             var configText = try {
                 Utils.getUrlContentWithCustomUserAgent(url)
             } catch (e: Exception) {

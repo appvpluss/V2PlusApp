@@ -56,7 +56,7 @@ object V2rayConfigUtil {
             val address = outbound.getServerAddress() ?: return Result(false, "")
             if (!Utils.isIpAddress(address)) {
                 if (!Utils.isValidUrl(address)) {
-                    Log.d(ANG_PACKAGE, "$address is an invalid ip or domain")
+                    //Log.d(ANG_PACKAGE, "$address is an invalid ip or domain")
                     return Result(false, "")
                 }
             }
