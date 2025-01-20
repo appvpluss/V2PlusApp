@@ -3,9 +3,10 @@ package com.v2plus.app
 import android.content.Context
 import androidx.multidex.MultiDexApplication
 import androidx.work.Configuration
+import com.tbruyelle.rxpermissions.BuildConfig
 import com.tencent.mmkv.MMKV
 import com.v2plus.app.util.Utils
-import com.v2plus.com.v2plus.app.BuildConfig
+
 
 class AngApplication : MultiDexApplication(), Configuration.Provider {
     companion object {

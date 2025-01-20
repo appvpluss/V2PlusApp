@@ -24,7 +24,7 @@ import com.v2plus.com.v2plus.app.R
 
 import com.v2plus.app.extension.toast
 import com.v2plus.app.service.V2RayServiceManager
-import com.v2plus.com.v2plus.app.BuildConfig
+import com.tbruyelle.rxpermissions.BuildConfig
 import java.io.IOException
 import java.net.*
 import java.util.*
@@ -106,12 +106,12 @@ object Utils {
         try {
             return Base64.decode(text, Base64.NO_WRAP).toString(Charsets.UTF_8)
         } catch (e: Exception) {
-            Log.i(ANG_PACKAGE, "Parse base64 standard failed $e")
+            //Log.i(ANG_PACKAGE, "Parse base64 standard failed $e")
         }
         try {
             return Base64.decode(text, Base64.NO_WRAP.or(Base64.URL_SAFE)).toString(Charsets.UTF_8)
         } catch (e: Exception) {
-            Log.i(ANG_PACKAGE, "Parse base64 url safe failed $e")
+            //Log.i(ANG_PACKAGE, "Parse base64 url safe failed $e")
         }
         return null
     }
