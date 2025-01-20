@@ -63,10 +63,6 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
-        <activity
-            android:exported="false"
-            android:name="com.v2plus.app.ui.ServerActivity"
-            android:windowSoftInputMode="stateUnchanged" />
 
         <activity
             android:exported="false"
