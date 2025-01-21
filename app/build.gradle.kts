@@ -4,6 +4,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        create("release") {
+            storeFile = file("key/key.jks")
+            storePassword = "l1H&m10k$>);"
+            keyPassword = "l1H&m10k$>);"
+            keyAlias = "key"
+        }
+    }
     namespace = "com.v2plus.com.v2plus.app"
     compileSdk = 34
 
@@ -92,6 +100,7 @@ android {
             useLegacyPackaging = true
         }
     }
+
 }
 
 dependencies {

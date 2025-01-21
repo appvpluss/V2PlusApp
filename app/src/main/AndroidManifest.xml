@@ -44,7 +44,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeDayNight"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m">
+        tools:targetApi="m"
+
+        >
 
         <activity
             android:name="com.v2plus.app.ui.MainActivity"

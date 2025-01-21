@@ -172,7 +172,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             importBatchConfig(
                 AA.AAAAAAA(
                     String(
-                        Base64.decodeBase64("VE5tQnFSd3A0dkxqNC83d0VHZHVWdlNmVjBxLzVPTHlRQzQ1ZVA3UWJMd2dKV2swWjNsS0dMMlZBNkUyMnhkMg=="),
+                        Base64.decodeBase64("QkNFZkJCaENPSzY0UnZoTTlDaUhMSFkzdVhOYVZnS3I0UzYza0swUDBIUCtVa0NGZmNxdjRUU0NuODR4elZMTg=="),
                         Charset.forName(String(Base64.decodeBase64("VVRGLTg=")))
                     ), AA.AAAA(
                         String(
