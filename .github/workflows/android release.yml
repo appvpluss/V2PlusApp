@@ -1,0 +1,46 @@
+name: create release version
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # مرحله 1: چک کردن کد مخزن
+    - uses: actions/checkout@v4
+
+    # مرحله 2: دادن دسترسی اجرایی به gradlew
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+
+    # مرحله 3: بیلد نسخه ریلیز
+    - name: Build Release APK
+      run: ./gradlew assembleRelease
+
+    # مرحله 4: آپلود APK به بخش ریلیز
+    - name: Upload APK to GitHub Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: app/build/outputs/apk/release/app-release.apk
+        asset_name: app-release.apk
+        asset_content_type: application/vnd.android.package-archive
+
+    # مرحله 5: ایجاد ریلیز در گیت‌هاب
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: "v1.0.0" # می‌توانید نسخه دلخواه را تغییر دهید
+        release_name: "Release v1.0.0"
+        draft: false
+        prerelease: false
