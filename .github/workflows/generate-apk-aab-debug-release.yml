@@ -2,12 +2,12 @@ name: Generated APK AAB (Upload - Create Artifact To Github Action)
 
 env:
   main_project_module: app
-  playstore_name: Frogobox ID
+  playstore_name: V2PlusApp
 
 on:
   push:
     branches:
-      - 'release/**'
+      - 'main/**'
   workflow_dispatch:
 
 jobs:
