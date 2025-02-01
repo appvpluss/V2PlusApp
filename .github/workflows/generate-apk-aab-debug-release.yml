@@ -56,11 +56,12 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ env.date_today }}
-          release_name: "Release - ${{ env.date_today }}"
+          name: "Release - ${{ env.date_today }}"
           draft: false
           prerelease: false
+          generate_release_notes: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # تغییر به توکن جدید
 
       # آپلود APK Debug به Releases
       - name: Upload APK Debug to Release
@@ -69,7 +70,7 @@ jobs:
           files: ${{ env.main_project_module }}/build/outputs/apk/debug/*.apk
           tag_name: v${{ env.date_today }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       # آپلود APK Release به Releases
       - name: Upload APK Release to Release
@@ -78,7 +79,7 @@ jobs:
           files: ${{ env.main_project_module }}/build/outputs/apk/release/*.apk
           tag_name: v${{ env.date_today }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       # آپلود AAB Release به Releases
       - name: Upload AAB to Release
@@ -87,4 +88,4 @@ jobs:
           files: ${{ env.main_project_module }}/build/outputs/bundle/release/*.aab
           tag_name: v${{ env.date_today }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
