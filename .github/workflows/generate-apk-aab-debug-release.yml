@@ -1,4 +1,4 @@
-name: Generated APK AAB (Upload - Create Artifact To Github Action)
+name: Generated APK AAB (Upload - Create Artifact To Github Action & Release)
 
 env:
   main_project_module: app
@@ -7,7 +7,7 @@ env:
 on:
   push:
     branches:
-      - 'main/**'
+      - 'main'
   workflow_dispatch:
 
 jobs:
@@ -33,7 +33,7 @@ jobs:
       - name: Install Gradle
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: "8.9"  # نسخه مناسب را مشخص کنید
+          gradle-version: "8.9"
 
       - name: Run gradle tests
         run: gradle test
@@ -50,20 +50,41 @@ jobs:
       - name: Build app bundle release (AAB)
         run: gradle ${{ env.main_project_module }}:bundleRelease
 
-      - name: Upload APK Debug
-        uses: actions/upload-artifact@v4
+      # ایجاد نسخه جدید در Release GitHub
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
         with:
-          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) debug generated
-          path: ${{ env.main_project_module }}/build/outputs/apk/debug/
+          tag_name: v${{ env.date_today }}
+          release_name: "Release - ${{ env.date_today }}"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload APK Release
-        uses: actions/upload-artifact@v4
+      # آپلود APK Debug به Releases
+      - name: Upload APK Debug to Release
+        uses: softprops/action-gh-release@v1
         with:
-          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - APK(s) release generated
-          path: ${{ env.main_project_module }}/build/outputs/apk/release/
+          files: ${{ env.main_project_module }}/build/outputs/apk/debug/*.apk
+          tag_name: v${{ env.date_today }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload AAB (App Bundle) Release
-        uses: actions/upload-artifact@v4
+      # آپلود APK Release به Releases
+      - name: Upload APK Release to Release
+        uses: softprops/action-gh-release@v1
         with:
-          name: ${{ env.date_today }} - ${{ env.playstore_name }} - ${{ env.repository_name }} - App bundle(s) AAB release generated
-          path: ${{ env.main_project_module }}/build/outputs/bundle/release/
+          files: ${{ env.main_project_module }}/build/outputs/apk/release/*.apk
+          tag_name: v${{ env.date_today }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # آپلود AAB Release به Releases
+      - name: Upload AAB to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ env.main_project_module }}/build/outputs/bundle/release/*.aab
+          tag_name: v${{ env.date_today }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
