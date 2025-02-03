@@ -50,6 +50,25 @@ jobs:
       - name: Build app bundle release (AAB)
         run: gradle ${{ env.main_project_module }}:bundleRelease
 
+      # آپلود خروجی‌ها به عنوان Artifact برای دانلود از GitHub Actions
+      - name: Upload APK Debug as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: APK-Debug-${{ env.date_today }}
+          path: ${{ env.main_project_module }}/build/outputs/apk/debug/*.apk
+
+      - name: Upload APK Release as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: APK-Release-${{ env.date_today }}
+          path: ${{ env.main_project_module }}/build/outputs/apk/release/*.apk
+
+      - name: Upload AAB as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AAB-Release-${{ env.date_today }}
+          path: ${{ env.main_project_module }}/build/outputs/bundle/release/*.aab
+
       # ایجاد نسخه جدید در Release GitHub
       - name: Create GitHub Release
         id: create_release
@@ -61,7 +80,7 @@ jobs:
           prerelease: false
           generate_release_notes: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # تغییر به توکن جدید
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       # آپلود APK Debug به Releases
       - name: Upload APK Debug to Release
