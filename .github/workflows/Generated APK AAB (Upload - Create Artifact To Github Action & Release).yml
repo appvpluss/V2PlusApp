@@ -1,0 +1,110 @@
+name: Generated APK AAB (Upload - Create Artifact To Github Action & Release)
+
+env:
+  main_project_module: app
+  playstore_name: V2PlusApp
+
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set current date as env variable
+        run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Set repository name as env variable
+        run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Install Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: "8.9"
+
+      - name: Run gradle tests
+        run: gradle test
+
+      - name: Build gradle project
+        run: gradle build -x lint --continue
+
+      - name: Build apk debug project (APK)
+        run: gradle assembleDebug
+
+      - name: Build apk release project (APK)
+        run: gradle assemble
+
+      - name: Build app bundle release (AAB)
+        run: gradle ${{ env.main_project_module }}:bundleRelease
+
+      # آپلود خروجی‌ها به عنوان Artifact برای دانلود از GitHub Actions
+      - name: Upload APK Debug as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: APK-Debug-${{ env.date_today }}
+          path: ${{ env.main_project_module }}/build/outputs/apk/debug/*.apk
+
+      - name: Upload APK Release as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: APK-Release-${{ env.date_today }}
+          path: ${{ env.main_project_module }}/build/outputs/apk/release/*.apk
+
+      - name: Upload AAB as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AAB-Release-${{ env.date_today }}
+          path: ${{ env.main_project_module }}/build/outputs/bundle/release/*.aab
+
+      # ایجاد نسخه جدید در Release GitHub
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ env.date_today }}
+          name: "Release - ${{ env.date_today }}"
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+      # آپلود APK Debug به Releases
+      - name: Upload APK Debug to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ env.main_project_module }}/build/outputs/apk/debug/*.apk
+          tag_name: v${{ env.date_today }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+      # آپلود APK Release به Releases
+      - name: Upload APK Release to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ env.main_project_module }}/build/outputs/apk/release/*.apk
+          tag_name: v${{ env.date_today }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+      # آپلود AAB Release به Releases
+      - name: Upload AAB to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ env.main_project_module }}/build/outputs/bundle/release/*.aab
+          tag_name: v${{ env.date_today }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
