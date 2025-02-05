@@ -38,8 +38,12 @@ jobs:
         with:
           gradle-version: "8.9"
 
+      - name: Grant execute permission to Gradle wrapper
+        run: chmod +x gradlew
+
       - name: Run gradle tests
         run: ./gradlew test
+
 
       - name: Build gradle project
         run: ./gradlew build -x lint --continue
