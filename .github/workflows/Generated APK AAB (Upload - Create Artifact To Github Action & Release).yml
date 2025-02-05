@@ -17,14 +17,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set current date as env variable
-        run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+      - name: Set executable permission for Gradle
+        run: chmod +x gradlew
 
-      - name: Get App Version
-        run: echo "app_version=$(grep 'versionName' app/build.gradle | awk '{print $2}' | tr -d '\"')" >> $GITHUB_ENV
+      - name: Set current date as env variable
+        run: echo "DATE_TODAY=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
       - name: Set repository name as env variable
-        run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
+        run: echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
+
+      - name: Determine build version
+        run: |
+          BASE_TAG="v${{ env.DATE_TODAY }}"
+          EXISTING_VERSIONS=$(git tag --list "$BASE_TAG*")
+
+          if [[ -z "$EXISTING_VERSIONS" ]]; then
+            VERSION="${BASE_TAG}-v1"
+          else
+            LAST_VERSION=$(echo "$EXISTING_VERSIONS" | sort -V | tail -n 1 | grep -oP '\d+$')
+            NEXT_VERSION=$((LAST_VERSION + 1))
+            VERSION="${BASE_TAG}-v$NEXT_VERSION"
+          fi
+
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Final version: $VERSION"
 
       - name: Set Up JDK
         uses: actions/setup-java@v4
@@ -38,76 +54,77 @@ jobs:
         with:
           gradle-version: "8.9"
 
-      - name: Grant execute permission to Gradle wrapper
-        run: chmod +x gradlew
-
-      - name: Run gradle tests
+      - name: Run Gradle Tests
         run: ./gradlew test
 
-
-      - name: Build gradle project
+      - name: Build Gradle Project
         run: ./gradlew build -x lint --continue
 
-      - name: Build apk debug project (APK)
+      - name: Build APK Debug
         run: ./gradlew assembleDebug
 
-      - name: Build apk release project (APK)
+      - name: Build APK Release
         run: ./gradlew assemble
 
-      - name: Build app bundle release (AAB)
+      - name: Build AAB Release
         run: ./gradlew ${{ env.main_project_module }}:bundleRelease
 
+      # آپلود خروجی‌ها به عنوان Artifact برای دانلود از GitHub Actions
       - name: Upload APK Debug as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: APK-Debug-${{ env.app_version }}
+          name: APK-Debug-${{ env.VERSION }}
           path: ${{ env.main_project_module }}/build/outputs/apk/debug/*.apk
 
       - name: Upload APK Release as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: APK-Release-${{ env.app_version }}
+          name: APK-Release-${{ env.VERSION }}
           path: ${{ env.main_project_module }}/build/outputs/apk/release/*.apk
 
       - name: Upload AAB as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: AAB-Release-${{ env.app_version }}
+          name: AAB-Release-${{ env.VERSION }}
           path: ${{ env.main_project_module }}/build/outputs/bundle/release/*.aab
 
+      # ایجاد نسخه جدید در Release GitHub با متن `Released by GitHub Actions`
       - name: Create GitHub Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v${{ env.app_version }}
-          name: "Release - v${{ env.app_version }}"
+          tag_name: ${{ env.VERSION }}
+          name: "Release - ${{ env.VERSION }}"
+          body: "### Released by GitHub Actions 🚀"
           draft: false
           prerelease: false
           generate_release_notes: true
-
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # آپلود APK Debug به Releases
       - name: Upload APK Debug to Release
         uses: softprops/action-gh-release@v1
         with:
           files: ${{ env.main_project_module }}/build/outputs/apk/debug/*.apk
-          tag_name: v${{ env.app_version }}
+          tag_name: ${{ env.VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # آپلود APK Release به Releases
       - name: Upload APK Release to Release
         uses: softprops/action-gh-release@v1
         with:
           files: ${{ env.main_project_module }}/build/outputs/apk/release/*.apk
-          tag_name: v${{ env.app_version }}
+          tag_name: ${{ env.VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # آپلود AAB Release به Releases
       - name: Upload AAB to Release
         uses: softprops/action-gh-release@v1
         with:
           files: ${{ env.main_project_module }}/build/outputs/bundle/release/*.aab
-          tag_name: v${{ env.app_version }}
+          tag_name: ${{ env.VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
