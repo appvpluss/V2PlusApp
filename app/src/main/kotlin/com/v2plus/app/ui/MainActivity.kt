@@ -98,6 +98,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         setContentView(view)
         title = getString(R.string.title_server)
         setSupportActionBar(binding.toolbar)
+        Toast.makeText(this@MainActivity,"اگر لیست سرور ها نمایش داده نشد،فیلترشکن خود را خاموش کنید",Toast.LENGTH_LONG).show()
 
         binding.fab.setOnClickListener {
             if (mainViewModel.isRunning.value == true) {
