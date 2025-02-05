@@ -98,7 +98,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         setContentView(view)
         title = getString(R.string.title_server)
         setSupportActionBar(binding.toolbar)
-        Toast.makeText(this@MainActivity,"اگر لیست سرور ها نمایش داده نشد،فیلترشکن خود را خاموش کنید",Toast.LENGTH_LONG).show()
 
         binding.fab.setOnClickListener {
             if (mainViewModel.isRunning.value == true) {
@@ -173,7 +172,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             importBatchConfig(
                 AA.AAAAAAA(
                     String(
-                        Base64.decodeBase64("QkNFZkJCaENPSzY0UnZoTTlDaUhMSFkzdVhOYVZnS3I0UzYza0swUDBIUCtVa0NGZmNxdjRUU0NuODR4elZMTg=="),
+                        Base64.decodeBase64("VE5tQnFSd3A0dkxqNC83d0VHZHVWdlNmVjBxLzVPTHlRQzQ1ZVA3UWJMd2dKV2swWjNsS0dMMlZBNkUyMnhkMg=="),
                         Charset.forName(String(Base64.decodeBase64("VVRGLTg=")))
                     ), AA.AAAA(
                         String(
@@ -347,7 +346,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             dialog.show()
         }
 
-    else {
+        else {
             val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(telegramUrl))
             context.startActivity(webIntent)
         }
@@ -612,4 +611,4 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
-    }
+}
