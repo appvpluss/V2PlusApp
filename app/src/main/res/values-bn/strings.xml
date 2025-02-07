@@ -268,6 +268,8 @@
     <string name="title_pref_fragment_length">ফ্র্যাগমেন্ট দৈর্ঘ্য (ন্যূনতম-সর্বাধিক)</string>
     <string name="title_pref_fragment_interval">ফ্র্যাগমেন্ট ইন্টারভ্যাল (ন্যূনতম-সর্বাধিক)</string>
     <string name="title_pref_fragment_enabled">ফ্র্যাগমেন্ট সক্রিয় করুন</string>
+    <string name="support">support</string>
+    <string name="faq">FAQ</string>
     <string-array name="share_method">
         <item>QR কোড</item>
         <item>ক্লিপবোর্ডে রপ্তানি করুন</item>

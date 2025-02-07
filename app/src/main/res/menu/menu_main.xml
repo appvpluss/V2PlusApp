@@ -8,8 +8,13 @@
         app:showAsAction="always"/>
     <item
         android:id="@+id/support"
-        android:title="@string/title_sub_update"
+        android:title="@string/support"
         android:icon="@drawable/baseline_support_agent_24"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/FAQ"
+        android:title="@string/faq"
+        android:icon="@drawable/baseline_question_mark_24"
         app:showAsAction="always">
         <!--<menu>
             <item

@@ -274,6 +274,8 @@
     <string name="title_pref_fragment_length">Fragment Length (min-max)</string>
     <string name="title_pref_fragment_interval">Fragment Interval (min-max)</string>
     <string name="title_pref_fragment_enabled">Enable Fragment</string>
+    <string name="support">support</string>
+    <string name="faq">FAQ</string>
 
     <string-array name="share_method">
         <item>QRcode</item>

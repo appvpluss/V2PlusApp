@@ -1,0 +1,99 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="راهنمایی:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="دکمه به روز رسانی: لیست سرورها را به‌روزرسانی می‌کند."
+        android:textSize="16sp"
+        android:textColor="#000"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="دکمه راهنمایی: بخش‌های مختلف برنامه را توضیح می‌دهد."
+        android:textSize="16sp"
+        android:textColor="#000"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_support"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="دکمه پشتیبانی: شما را به بخش پشتیبانی تلگرام هدایت می‌کند."
+        android:textSize="16sp"
+        android:textColor="#000"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_restart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="شروع دوباره سرویس: سرویس را مجدداً فعال می‌کند."
+        android:textSize="16sp"
+        android:textColor="#000"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="تست همه کانفیگ‌ها: سرعت هر آیتم را محاسبه و نمایش می‌دهد."
+        android:textSize="16sp"
+        android:textColor="#000"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="مرتب‌سازی بر اساس سرعت: آیتم‌ها را از سریع‌ترین به کندترین مرتب می‌کند."
+        android:textSize="16sp"
+        android:textColor="#000"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_vpn_warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="⚠️ اگر لیست سرورها نمایش داده نشد، فیلترشکن خود را خاموش کرده و دکمه به‌روزرسانی را بزنید."
+        android:textSize="16sp"
+        android:textColor="#FF0000"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_speed_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" کنار هر آیتم یک عدد نمایش داده می‌شود. اگر مقدار -1 باشد، یعنی آن کانفیگ کار نمی‌کند. اگر مقدار دیگری باشد، کمترین عدد به معنی بهترین سرعت است."
+        android:textSize="16sp"
+        android:textColor="#000"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="بستن صفحه"
+        android:onClick="closeFAQ"/>
+
+</LinearLayout>

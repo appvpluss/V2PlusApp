@@ -272,6 +272,8 @@
     <string name="title_pref_fragment_length">Длина фрагмента (от - до)</string>
     <string name="title_pref_fragment_interval">Интервал фрагментов (от - до)</string>
     <string name="title_pref_fragment_enabled">Использовать фрагментирование</string>
+    <string name="support">support</string>
+    <string name="faq">FAQ</string>
 
     <string-array name="share_method">
         <item>QR-код</item>

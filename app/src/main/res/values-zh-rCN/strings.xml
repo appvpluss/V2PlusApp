@@ -271,6 +271,8 @@
     <string name="title_pref_fragment_length">分片包长（最小-最大）</string>
     <string name="title_pref_fragment_interval">分片间隔（最小-最大）</string>
     <string name="title_pref_fragment_enabled">启用分片（Fragment）</string>
+    <string name="support">support</string>
+    <string name="faq">FAQ</string>
 
     <string-array name="share_method">
         <item>二维码</item>

@@ -69,7 +69,9 @@
         <activity
             android:exported="false"
             android:name="com.v2plus.app.ui.SettingsActivity" />
-
+        <activity
+            android:exported="false"
+            android:name="com.v2plus.app.ui.FAQ" />
         <activity
             android:exported="false"
             android:name="com.v2plus.app.ui.LogcatActivity" />

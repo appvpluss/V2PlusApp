@@ -98,7 +98,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         setContentView(view)
         title = getString(R.string.title_server)
         setSupportActionBar(binding.toolbar)
-
+        Toast.makeText(this@MainActivity,"اطلاع از راهنمای برنامه با انتخاب آیکون >؟< در بالای صفحه",Toast.LENGTH_LONG).show()
         binding.fab.setOnClickListener {
             if (mainViewModel.isRunning.value == true) {
                 Utils.stopVService(this)
@@ -134,16 +134,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         mItemTouchHelper?.attachToRecyclerView(binding.recyclerView)
 
 
-        val toggle = ActionBarDrawerToggle(
-            this,
-            binding.drawerLayout,
-            binding.toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
-        )
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        binding.navView.setNavigationItemSelectedListener(this)
+
 
 
         setupViewModel()
@@ -270,6 +261,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         R.id.sort_by_test_results -> {
             MmkvManager.sortByTestResults()
             mainViewModel.reloadServerList()
+            true
+        }
+
+        R.id.FAQ ->{
+            intent = Intent (this@MainActivity,FAQ::class.java)
+            startActivity(intent)
+
             true
         }
 
@@ -595,20 +593,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.settings -> {
-                startActivity(Intent(this, SettingsActivity::class.java)
-                    .putExtra("isRunning", mainViewModel.isRunning.value == true))
-            }
-            R.id.user_asset_setting -> {
-                startActivity(Intent(this, UserAssetActivity::class.java))
-            }
-            R.id.logcat -> {
-                startActivity(Intent(this, LogcatActivity::class.java))
-            }
 
-        }
-        binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 }

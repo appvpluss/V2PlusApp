@@ -299,6 +299,8 @@
     </string-array>
     <string name="menu_item_add_asset">افزودن</string>
     <string name="menu_item_add_url">افزودن لینک</string>
+    <string name="support">پشتیبانی</string>
+    <string name="faq">سوالات متداول</string>
 
     <string-array name="ui_mode_night">
         <item>Follow system</item>

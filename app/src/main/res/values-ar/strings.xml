@@ -271,6 +271,8 @@
     <string name="title_pref_fragment_length">طول الجزء (الحد الأدنى - الحد الأقصى)</string>
     <string name="title_pref_fragment_interval">فاصل الجزء (الحد الأدنى - الحد الأقصى)</string>
     <string name="title_pref_fragment_enabled">تفعيل الجزء</string>
+    <string name="support">support</string>
+    <string name="faq">FAQ</string>
 
     <string-array name="share_method">
         <item>رمز استجابة سريعة (QRcode)</item>
