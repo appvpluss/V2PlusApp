@@ -53,21 +53,3 @@ jobs:
       - name: Build AAB Release
         run: ./gradlew ${{ env.main_project_module }}:bundleRelease
 
-      # آپلود خروجی‌ها به عنوان Artifact برای دانلود از GitHub Actions
-      - name: Upload APK Debug as Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: APK-Debug-${{ env.DATE_TODAY }}
-          path: ${{ env.main_project_module }}/build/outputs/apk/debug/*.apk
-
-      - name: Upload APK Release as Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: APK-Release-${{ env.DATE_TODAY }}
-          path: ${{ env.main_project_module }}/build/outputs/apk/release/*.apk
-
-      - name: Upload AAB as Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: AAB-Release-${{ env.DATE_TODAY }}
-          path: ${{ env.main_project_module }}/build/outputs/bundle/release/*.aab
