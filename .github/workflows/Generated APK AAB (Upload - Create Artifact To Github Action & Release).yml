@@ -44,12 +44,3 @@ jobs:
       - name: Build Gradle Project
         run: ./gradlew build -x lint --continue
 
-      - name: Build APK Debug
-        run: ./gradlew assembleDebug
-
-      - name: Build APK Release
-        run: ./gradlew assemble
-
-      - name: Build AAB Release
-        run: ./gradlew ${{ env.main_project_module }}:bundleRelease
-
