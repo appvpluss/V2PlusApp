@@ -6,10 +6,14 @@ plugins {
 android {
     signingConfigs {
         create("release") {
-            storeFile = file("key/key.jks")
+            storeFile = file(System.getenv("SIGNING_STORE_FILE") ?: "app/key.jks")
+            storePassword = System.getenv("l1H&m10k$>);") ?: "default"
+            keyAlias = System.getenv("key") ?: "default"
+            keyPassword = System.getenv("l1H&m10k$>);") ?: "default"
+            /*storeFile = file("key/key.jks")
             storePassword = "l1H&m10k$>);"
             keyPassword = "l1H&m10k$>);"
-            keyAlias = "key"
+            keyAlias = "key"*/
         }
     }
     namespace = "com.v2plus.com.v2plus.app"
@@ -40,6 +44,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
 
         }
         debug {
