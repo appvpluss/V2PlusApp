@@ -42,5 +42,5 @@ jobs:
         run: ./gradlew test
 
       - name: Build Gradle Project
-        run: ./gradlew build -x lint --continue
+        run: ./gradlew assembleDebug
 
