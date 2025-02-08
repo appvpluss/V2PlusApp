@@ -101,30 +101,3 @@ jobs:
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # آپلود APK Debug به Releases
-      - name: Upload APK Debug to Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: ${{ env.main_project_module }}/build/outputs/apk/debug/*.apk
-          tag_name: ${{ env.VERSION }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # آپلود APK Release به Releases
-      - name: Upload APK Release to Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: ${{ env.main_project_module }}/build/outputs/apk/release/*.apk
-          tag_name: ${{ env.VERSION }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # آپلود AAB Release به Releases
-      - name: Upload AAB to Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: ${{ env.main_project_module }}/build/outputs/bundle/release/*.aab
-          tag_name: ${{ env.VERSION }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
