@@ -1,0 +1,45 @@
+name: Build APK & AAB (Upload as Artifact Only)
+
+env:
+  main_project_module: app
+  playstore_name: V2PlusApp
+
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set executable permission for Gradle
+        run: chmod +x gradlew
+
+      - name: Set current date as env variable
+        run: echo "DATE_TODAY=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Set repository name as env variable
+        run: echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Install Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: "8.9"
+
+      - name: Run Gradle Tests
+        run: ./gradlew test
+
+      - name: Build Gradle Project
+        run: ./gradlew assembleDebug
